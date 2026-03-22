@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>동아리 공식 웹사이트</title>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans leading-tight">
+
+    <nav class="flex justify-between items-center px-8 py-5 bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="text-2xl font-black tracking-tighter text-green-600 italic">CLUB_NAME</div>
+        <div class="hidden md:flex space-x-8 text-sm font-bold text-gray-400">
+            <a href="#schedule" class="hover:text-black">일정표</a>
+            <a href="#attendance" class="hover:text-black text-green-600">출석체크</a>
+            <a href="#portfolio" class="hover:text-black">포트폴리오</a>
+            <a href="#concept" class="hover:text-black">개념정리</a>
+        </div>
+        <div class="text-xs font-bold bg-gray-100 px-4 py-2 rounded-lg">STUDENT MODE</div>
+    </nav>
+
+    <header id="schedule" class="bg-[#a5cc6b] py-24 px-10 text-left">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-7xl font-black text-white leading-[1.1]">
+                내가 <br> <span class="text-black">니 앱이다</span>
+            </h1>
+            <p class="mt-6 text-xl font-bold text-black opacity-80">DSM 근본 앱개발 동아리</p>
+            
+            <div class="mt-10">
+                <a href="INSERT_YOUR_LINK_HERE" target="_blank" class="bg-black text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-gray-800 transition-all shadow-2xl inline-flex items-center group">
+                    🗓️ 1학기 전체 일정표 확인
+                    <span class="ml-3 group-hover:translate-x-2 transition-transform">→</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="attendance" class="max-w-4xl mx-auto -mt-12 px-4">
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-50">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h2 class="text-3xl font-black">📍 실시간 출석체크</h2>
+                    <p class="text-gray-400 mt-1 font-medium">활동 시작 전 버튼을 눌러주세요.</p>
+                </div>
+                <button onclick="this.innerHTML='✅ 출석 완료'; this.classList.add('bg-gray-100', 'text-green-600');" class="bg-green-500 text-white px-12 py-6 rounded-2xl text-2xl font-black hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-green-200">
+                    지금 출석하기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="max-w-6xl mx-auto mt-24 px-6">
+        <h2 class="text-4xl font-black mb-12 flex items-center">
+            📂 차시별 포트폴리오
+            <span class="ml-4 text-sm bg-black text-white px-3 py-1 rounded-full font-bold">8 SESSIONS</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-3xl border border-gray-100 hover:border-green-400 transition-colors cursor-pointer group">
+                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🚀</div>
+                <div class="text-xs font-black text-green-500 mb-1">SESSION 01</div>
+                <h3 class="text-xl font-bold mb-3">개발 환경 구축</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">React와 Tailwind 환경을 세팅하고 첫 페이지를 띄워봅니다.</p>
+                <div class="text-xs font-bold text-blue-500 underline">결과물 보기</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl border border-gray-100 hover:border-green-400 transition-colors cursor-pointer group">
+                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🎨</div>
+                <div class="text-xs font-black text-green-500 mb-1">SESSION 02</div>
+                <h3 class="text-xl font-bold mb-3">UI 컴포넌트 설계</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">재사용 가능한 버튼과 입력창 컴포넌트를 직접 제작합니다.</p>
+                <div class="text-xs font-bold text-blue-500 underline">결과물 보기</div>
+            </div>
+            </div>
+    </section>
+
+    <section id="concept" class="max-w-6xl mx-auto my-24 px-6 bg-gray-900 rounded-[3rem] py-16 text-white overflow-hidden relative">
+        <div class="relative z-10">
+            <h2 class="text-4xl font-black mb-10 flex items-center">
+                📝 핵심 개념 정리
+                <span class="ml-4 text-xs bg-green-500 text-white px-3 py-1 rounded-full uppercase tracking-widest">Update Required</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="border-l-2 border-green-500 pl-6 py-2">
+                    <h4 class="text-xl font-bold text-green-400 mb-2">오늘의 핵심 키워드</h4>
+                    <ul class="text-gray-400 space-y-2 text-sm">
+                        <li>• 아직 수업 내용이 등록되지 않았습니다.</li>
+                        <li>• 강의 후 이곳에 주요 개념을 요약해 드릴게요.</li>
+                    </ul>
+                </div>
+                <div class="border-l-2 border-gray-700 pl-6 py-2">
+                    <h4 class="text-xl font-bold text-gray-300 mb-2">참고 링크 및 과제</h4>
+                    <p class="text-gray-500 text-sm italic">과제 확인을 위해 로그인이 필요할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute right-[-5%] top-[-10%] w-64 h-64 bg-green-500 opacity-10 rounded-full blur-3xl"></div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-400 text-xs font-bold tracking-widest uppercase">
+        © 2026 CLUB_NAME. All rights reserved.
+    </footer>
+
+</body>
+</html>
