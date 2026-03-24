@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title> The record 동아리 홈페이지</title>
+    <title>The Record 동아리 홈페이지</title>
     <style>
         .attendance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
     </style>
@@ -12,8 +12,8 @@
 <body class="bg-slate-50 text-slate-900 antialiased">
 
     <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b z-50 px-6 py-4 flex justify-between items-center">
-        <div class="font-black text-2xl text-green-600 italic tracking-tighter">CLUB_NAME</div>
-        <div class="text-[10px] bg-slate-100 px-3 py-1.5 rounded-full font-bold text-slate-500 uppercase tracking-wider">19 Members Active</div>
+        <div class="font-black text-2xl text-green-600 italic tracking-tighter">THE RECORD</div>
+        <div id="active-count" class="text-[10px] bg-slate-100 px-3 py-1.5 rounded-full font-bold text-slate-500 uppercase tracking-wider">연결 중...</div>
     </nav>
 
     <header class="bg-[#a5cc6b] py-16 px-8 md:px-20 relative overflow-hidden">
@@ -24,10 +24,10 @@
             <p class="mt-6 text-xl font-bold text-black/70 italic underline decoration-black/20"> 시대의 미디어를 기록하고 영화로 남기다</p>
             
             <div class="mt-12">
-                <a href= https://drive.google.com/file/d/1ABpdDqreD-i6UfEQfGsWq9U7MYI8lzcp/view?usp=sharing
+                <a href="https://drive.google.com/file/d/1ABpdDqreD-i6UfEQfGsWq9U7MYI8lzcp/view?usp=sharing" target="_blank"
                    class="inline-block bg-black text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl hover:scale-105 transition-transform active:scale-95">
-                   🗓️ 1학기 전체 일정표 확인 
-                </a
+                    🗓️ 1학기 전체 일정표 확인 
+                </a>
             </div>
         </div>
         <div class="absolute right-[-10%] bottom-[-20%] w-96 h-96 bg-black/10 rounded-full"></div>
@@ -38,7 +38,7 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-2xl font-black">📍 실시간 출석체크</h2>
-                    <p class="text-slate-400 text-sm font-medium mt-1">이름을 클릭하여 출석을 완료하세요.</p>
+                    <p class="text-slate-400 text-sm font-medium mt-1">이름을 클릭하여 출석을 완료하세요. (전체 공유됨)</p>
                 </div>
                 <div class="hidden md:block text-right">
                     <span id="current-date" class="text-green-600 font-black text-lg"></span>
@@ -95,50 +95,68 @@
     </section>
 
     <script>
-        // [설정] 여기에 구글 시트 배포 URL을 넣으세요
+        // [설정] 배포한 구글 앱스 스크립트 URL을 여기에 넣으세요
         const SCRIPT_URL = "여기에_URL_붙여넣기";
 
-        // 19명 명단
         const members = ["신채원", "박길", "배준석", "김예림", "윤준서", "최현석", "서연지", "이승아", "김재윤", "강민경", "김나연", "석연진", "이가빈", "정예준", "전지윤", "한가은", "임지섭", "지한결", "조서영"];
 
-        // 오늘 날짜 표시
         document.getElementById('current-date').innerText = new Date().toLocaleDateString();
 
-        // 버튼 생성
-        const btnContainer = document.getElementById('member-buttons');
-        btnContainer.innerHTML = members.map(name => `
-            <button onclick="submitAttendance('${name}', this)" 
-                    class="bg-slate-50 border border-slate-200 py-4 rounded-2xl text-sm font-bold transition-all active:scale-90 shadow-sm hover:bg-white hover:border-green-400">
-                ${name}
-            </button>
-        `).join('');
+        // 1. 실시간 출석 데이터 가져오기 (전체 동기화 핵심)
+        async function fetchAttendance() {
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const attendedMembers = await response.json();
+                renderButtons(attendedMembers);
+                document.getElementById('active-count').innerText = `${attendedMembers.length} Members Checked Today`;
+            } catch (error) {
+                console.error("데이터 로드 실패", error);
+                renderButtons([]); // 실패 시 빈 버튼 목록 출력
+            }
+        }
 
-        // 출석 데이터 전송 함수
-        function submitAttendance(name, btn) {
+        // 2. 버튼 렌더링 함수
+        function renderButtons(attendedMembers) {
+            const btnContainer = document.getElementById('member-buttons');
+            btnContainer.innerHTML = members.map(name => {
+                const isChecked = attendedMembers.includes(name);
+                return `
+                    <button id="btn-${name}" onclick="submitAttendance('${name}', this)" 
+                            ${isChecked ? 'disabled' : ''}
+                            class="${isChecked ? 'bg-green-500 text-white border-transparent' : 'bg-slate-50 border-slate-200'} py-4 rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-sm">
+                        ${isChecked ? '✅ ' + name : name}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // 3. 출석 전송 함수
+        async function submitAttendance(name, btn) {
             if(btn.disabled) return;
             
             const originalText = btn.innerText;
             btn.innerText = "전송중..";
-            btn.classList.add('bg-yellow-100', 'border-yellow-400');
+            btn.disabled = true;
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: name, date: new Date().toLocaleString() })
-            })
-            .then(() => {
-                btn.innerText = "✅ " + name;
-                btn.classList.remove('bg-yellow-100', 'border-yellow-400');
-                btn.classList.add('bg-green-500', 'text-white', 'border-transparent');
-                btn.disabled = true;
-            })
-            .catch(() => {
-                alert("전송 실패! URL 설정을 확인하세요.");
+            try {
+                // 구글 시트로 데이터 전송
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ name: name })
+                });
+                
+                // 전송 후 즉시 데이터를 다시 불러와서 모든 기기에 동기화
+                await fetchAttendance();
+            } catch (error) {
+                alert("출석 체크 실패! 다시 시도해주세요.");
                 btn.innerText = originalText;
-                btn.classList.remove('bg-yellow-100', 'border-yellow-400');
-            });
+                btn.disabled = false;
+            }
         }
+
+        // 초기 실행 및 30초마다 자동 업데이트 (실시간 현황판 기능)
+        fetchAttendance();
+        setInterval(fetchAttendance, 30000); 
     </script>
 </body>
 </html>
