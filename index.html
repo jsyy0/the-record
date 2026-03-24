@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>The record 동아리 홈페이지</title>
+    <title>The Record 동아리 홈페이지</title>
     <style>
         .attendance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
     </style>
@@ -13,7 +13,7 @@
 
     <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b z-50 px-6 py-4 flex justify-between items-center">
         <div class="font-black text-2xl text-green-600 italic tracking-tighter">THE RECORD</div>
-        <div id="active-count" class="text-[10px] bg-slate-100 px-3 py-1.5 rounded-full font-bold text-slate-500 uppercase tracking-wider">연결 중...</div>
+        <div id="status-tag" class="text-[10px] bg-slate-100 px-3 py-1.5 rounded-full font-bold text-slate-500 uppercase tracking-wider">연결 중...</div>
     </nav>
 
     <header class="bg-[#a5cc6b] py-16 px-8 md:px-20 relative overflow-hidden">
@@ -23,12 +23,13 @@
             </h1>
             <p class="mt-6 text-xl font-bold text-black/70 italic underline decoration-black/20"> 시대의 미디어를 기록하고 영화로 남기다</p>
             <div class="mt-12">
-                <a href="https://drive.google.com/file/d/1ABpdDqreD-i6UfEQfGsWq9U7MYI8lzcp/view?usp=sharing" target="_blank"
+                <a href="https://drive.google.com/file/d/1ABpdDqreD-i6UfEQfGsWq9U7MYI8lzcp/view?usp=sharing"
                    class="inline-block bg-black text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl hover:scale-105 transition-transform active:scale-95">
-                    🗓️ 1학기 전체 일정표 확인 
+                   🗓️ 1학기 전체 일정표 확인 
                 </a>
             </div>
         </div>
+        <div class="absolute right-[-10%] bottom-[-20%] w-96 h-96 bg-black/10 rounded-full"></div>
     </header>
 
     <section id="attendance" class="max-w-4xl mx-auto -mt-10 px-4 relative z-20">
@@ -36,89 +37,119 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-2xl font-black">📍 실시간 출석체크</h2>
-                    <p class="text-slate-400 text-sm font-medium mt-1">이름을 클릭하면 실시간으로 모든 기기에 반영됩니다.</p>
+                    <p class="text-slate-400 text-sm font-medium mt-1">이름을 클릭하여 출석을 완료하세요. (전체 공유됨)</p>
                 </div>
-                <div class="text-right"><span id="current-date" class="text-green-600 font-black text-lg font-mono"></span></div>
+                <div class="hidden md:block text-right">
+                    <span id="current-date" class="text-green-600 font-black text-lg"></span>
+                </div>
             </div>
-            <div class="attendance-grid" id="member-buttons"></div>
+            <div class="attendance-grid" id="member-buttons">
+                </div>
         </div>
     </section>
 
     <section class="max-w-5xl mx-auto mt-24 px-6">
-        <h2 class="text-3xl font-black mb-10">📂 차시별 포트폴리오</h2>
+        <h2 class="text-3xl font-black mb-10 flex items-center">📂 차시별 포트폴리오 <span class="ml-4 text-xs bg-slate-200 text-slate-500 px-2 py-1 rounded">Update Weekly</span></h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <a href="#" class="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-green-400 transition-all text-center">
-                <div class="text-4xl mb-4">🔥</div>
+            <a href="포트폴리오_링크1" class="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-green-400 transition-all text-center shadow-sm hover:shadow-xl">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition-transform">🔥</div>
                 <div class="font-black text-lg">1차시</div>
+                <div class="text-xs text-slate-400 mt-1">콘텐츠 제작</div>
             </a>
+            <a href="포트폴리오_링크2" class="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-green-400 transition-all text-center shadow-sm hover:shadow-xl">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition-transform">💻</div>
+                <div class="font-black text-lg">2차시</div>
+                <div class="text-xs text-slate-400 mt-1">진로체험의 날</div>
+            </a>
+            <a href="포트폴리오_링크3" class="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-green-400 transition-all text-center shadow-sm hover:shadow-xl">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition-transform">🎨</div>
+                <div class="font-black text-lg">3차시</div>
+                <div class="text-xs text-slate-400 mt-1">영화와 미디어 홍보</div>
+            </a>
+            <a href="포트폴리오_링크4" class="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-green-400 transition-all text-center shadow-sm hover:shadow-xl">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition-transform">🚀</div>
+                <div class="font-black text-lg">4차시</div>
+                <div class="text-xs text-slate-400 mt-1">진로활동</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto my-24 px-6 pb-20">
+        <div class="bg-slate-900 rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-black mb-10 flex items-center">📝 핵심 개념 정리 및 수업자료 <span class="ml-4 text-[10px] bg-green-500 text-white px-2 py-1 rounded">New</span></h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="개념정리_링크1" class="block p-6 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors">
+                        <span class="text-green-400 text-xs font-bold uppercase tracking-widest">Session 01</span>
+                        <h3 class="text-xl font-bold mt-2">영화 분석법 소개 →</h3>
+                    </a>
+                    <a href="개념정리_링크2" class="block p-6 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors">
+                        <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Session 02</span>
+                        <h3 class="text-xl font-bold mt-2"> 수업자료 준비 →</h3>
+                    </a>
+                </div>
             </div>
+        </div>
     </section>
 
     <script>
-        // 🚨 중요: 여기에 본인의 구글 웹 앱 URL을 넣으세요!
+        // 🚨 여기에 본인의 구글 앱스 스크립트 웹 앱 URL을 넣으세요
         const SCRIPT_URL = "여기에_URL_붙여넣기";
 
         const members = ["신채원", "박길", "배준석", "김예림", "윤준서", "최현석", "서연지", "이승아", "김재윤", "강민경", "김나연", "석연진", "이가빈", "정예준", "전지윤", "한가은", "임지섭", "지한결", "조서영"];
 
         document.getElementById('current-date').innerText = new Date().toLocaleDateString();
 
-        // 실시간 목록 불러오기
-        async function fetchAttendance() {
+        // 1. 실시간 데이터 가져오기
+        async function loadAttendance() {
             try {
                 const response = await fetch(SCRIPT_URL);
-                const attendedMembers = await response.json();
-                renderButtons(attendedMembers);
-                document.getElementById('active-count').innerText = `${attendedMembers.length} Members Checked`;
-            } catch (error) {
-                console.error("연결 실패", error);
+                const attendedList = await response.json();
+                renderButtons(attendedList);
+                document.getElementById('status-tag').innerText = `${attendedList.length} Members Checked Today`;
+            } catch (e) {
                 renderButtons([]);
-                document.getElementById('active-count').innerText = "Offline";
+                document.getElementById('status-tag').innerText = "Offline";
             }
         }
 
-        // 버튼 생성
-        function renderButtons(attendedMembers) {
+        // 2. 버튼 생성 및 업데이트
+        function renderButtons(attendedList) {
             const btnContainer = document.getElementById('member-buttons');
             btnContainer.innerHTML = members.map(name => {
-                const isChecked = attendedMembers.includes(name);
+                const isAttended = attendedList.includes(name);
                 return `
                     <button id="btn-${name}" onclick="submitAttendance('${name}', this)" 
-                            ${isChecked ? 'disabled' : ''}
-                            class="${isChecked ? 'bg-green-500 text-white border-transparent' : 'bg-slate-50 border-slate-200 hover:bg-white hover:border-green-400'} py-4 rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-sm">
-                        ${isChecked ? '✅ ' + name : name}
+                            ${isAttended ? 'disabled' : ''}
+                            class="${isAttended ? 'bg-green-500 text-white border-transparent' : 'bg-slate-50 border-slate-200'} py-4 rounded-2xl text-sm font-bold transition-all active:scale-95 shadow-sm">
+                        ${isAttended ? '✅ ' + name : name}
                     </button>
                 `;
             }).join('');
         }
 
-        // 출석 데이터 전송
+        // 3. 출석 제출
         async function submitAttendance(name, btn) {
             if(btn.disabled) return;
-            
-            const originalText = btn.innerText;
             btn.innerText = "처리중..";
             btn.disabled = true;
 
             try {
-                // 데이터를 보낼 때 fetch 옵션을 더 정밀하게 설정
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ "name": name }),
-                    headers: { 'Content-Type': 'text/plain' } // CORS 우회를 위해 text/plain 사용 가능
+                    body: JSON.stringify({ name: name })
                 });
-                
-                // 전송 후 1초 뒤에 목록 갱신
-                setTimeout(fetchAttendance, 1000);
-            } catch (error) {
-                alert("체크 실패! 인터넷이나 URL 설정을 확인하세요.");
-                btn.innerText = originalText;
+                loadAttendance(); // 제출 후 즉시 목록 갱신
+            } catch (e) {
+                alert("체크 실패! 다시 시도해주세요.");
+                btn.innerText = name;
                 btn.disabled = false;
             }
         }
 
-        // 시작 시 실행 및 10초마다 갱신
-        fetchAttendance();
-        setInterval(fetchAttendance, 10000);
+        // 초기 실행 및 주기적 동기화
+        loadAttendance();
+        setInterval(loadAttendance, 30000); 
     </script>
 </body>
 </html>
